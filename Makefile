@@ -1,13 +1,11 @@
 include .env
 export $(shell sed 's/=.*//' .env)
-MANAGE = python src/manage.py
+MANAGE = python manage.py
 
 run:
 	$(MANAGE) runserver
 new-migrate:
 	$(MANAGE) makemigrations
-migrate:
-	$(MANAGE) migrate
 check:
 	$(MANAGE) check
 check-migrate:
@@ -20,4 +18,8 @@ createsuperuser:
 	$(MANAGE) createsuperuser
 freeze:
 	pip freeze > requirements.txt
-
+kill-port:
+	sudo fuser -k 8000/tcp
+migrate:
+	$(MANAGE) makemigrations
+	$(MANAGE) migrate
