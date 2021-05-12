@@ -1,6 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.filters import SearchFilter
 from rest_framework.viewsets import ViewSet, ModelViewSet
 from rest_framework.authentication import TokenAuthentication
 
@@ -98,3 +99,6 @@ class UserProfileViewSet(ModelViewSet):
 
     authentication_classes = (TokenAuthentication,)
     permission_classes = (UpdateOwnProfile,)
+
+    filter_backends = (SearchFilter,)
+    search_fields = ('name', 'email',)
